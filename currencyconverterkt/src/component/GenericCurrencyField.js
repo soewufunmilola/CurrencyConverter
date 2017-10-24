@@ -18,7 +18,7 @@ class GenericCurrencyField extends Component
               <View style={viewStyles.container}>
 
                   <View style={viewStyles.amountFieldArea}>
-                     <View/>
+                     <Image source= {require ('./../images/nigFlag.png')} resizeMode={'cover'} style= {viewStyles.flagIcon}/>
                      <Text style= {viewStyles.amount}> 400 </Text>
                   </View>
 
@@ -74,6 +74,12 @@ class GenericCurrencyField extends Component
    {
      color: 'white',
      fontSize: 30,
+   },
+
+   flagIcon:
+   {
+     width: 55,
+     height: 55
    }
  };
 

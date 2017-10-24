@@ -13,13 +13,12 @@ export default class App extends React.Component {
             </View>
 
             <View style= {viewStyles.currencyBlockBackground}>
-              <GenericCurrencyField/>
+                <GenericCurrencyField currencyDescriptionText={'NGN'}/>
+
             </View>
 
-            <View style={viewStyles.keypad}>
-
-
-           </View>
+                <View style={viewStyles.keypad}>
+                </View>
 
       </View>
     );
@@ -59,9 +58,6 @@ const viewStyles =
        backgroundColor: 'lightgrey',
        width: '100%',
        height: '27.5%',
-       alignItems: 'center',
-       justifyContent:'center'
-
      },
 
 /*

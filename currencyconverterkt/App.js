@@ -13,7 +13,21 @@ export default class App extends React.Component {
             </View>
 
             <View style= {viewStyles.currencyBlockBackground}>
-                <GenericCurrencyField currencyDescriptionText={'NGN'}/>
+                <GenericCurrencyField
+                currencyDescriptionText={'NGN'}
+                iconFlag= {require ('./src/images/nigFlag.png')}
+                amountFieldArea={'0'}
+                />
+                <GenericCurrencyField
+                currencyDescriptionText={'GBP'}
+                iconFlag= {require ('./src/images/uk-flag.png')}
+                amountFieldArea={'0'}
+                />
+
+                <View style={viewStyles.exchangeRangeDetail} >
+                <Text style = {viewStyles.bleh}> 1 NGN = 0.0021 GBP </Text>
+                <Text style = {viewStyles.bleh}> 1 GBP = 465.8221 NGN </Text>
+                </View>
 
             </View>
 
@@ -40,7 +54,7 @@ const viewStyles =
 
   headertextStyle:
     {
-      color: 'grey',
+      color: 'black',
       fontSize: 30,
       fontWeight: '300',
 
@@ -65,7 +79,6 @@ the style for the header area of the app
 */
    headerArea:
    {
-
     backgroundColor: 'lightblue',
     width: '100%',
     height: '12.5%',
@@ -85,5 +98,20 @@ the style for the header area of the app
    height: '60%',
 
   } ,
+
+  exchangeRangeDetail:
+  {
+    flex: 1.4,
+    padding: 1.2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  bleh:
+  {
+    color: 'black',
+    fontSize: 14,
+    margin: 3,
+  },
 
 });

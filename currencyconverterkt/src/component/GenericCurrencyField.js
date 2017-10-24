@@ -18,8 +18,8 @@ class GenericCurrencyField extends Component
               <View style={viewStyles.container}>
 
                   <View style={viewStyles.amountFieldArea}>
-                     <Image source= {require ('./../images/nigFlag.png')} resizeMode={'cover'} style= {viewStyles.flagIcon}/>
-                     <Text style= {viewStyles.amount}> 400 </Text>
+                     <Image source= {this.props.iconFlag} resizeMode={'cover'} style= {viewStyles.flagIcon}/>
+                     <Text style= {viewStyles.amount}> {this.props.amountFieldArea} </Text>
                   </View>
 
                   <View style={viewStyles.currencyDescriptionField}>
@@ -40,8 +40,9 @@ class GenericCurrencyField extends Component
    container:
    {
      width: '100%',
-     height: 80,
      flexDirection:'row',
+     flex: 2,
+     marginBottom: 3,
    },
 
    amountFieldArea:

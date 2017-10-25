@@ -11,13 +11,40 @@ export default class App extends React.Component
       super(props);
       // this array will hold all the buttons
       this.buttonArray= ['1','2','3','4','5','6','7','8','9','.','0','GO'];
+
+    this.state = {
+      currency1isHighlighted: true,
+      currency2isHighlighted: false
     }
 
-
+   }
 
   buttonPressed = (text, isDeleteButton) =>
   {
     console.log ("The button Pressed was = " + text);
+  }
+
+  fieldTapped = (fieldIndex) => {
+
+    let FIELD_ONE = 0;
+
+    if (fieldIndex == FIELD_ONE)
+    {
+      this.setState({
+        currency1isHighlighted: true, currency2isHighlighted: false
+
+      });
+    }
+
+    else {
+      {
+        this.setState({
+          currency1isHighlighted: false, currency2isHighlighted: true
+        });
+      }
+    }
+
+
   }
 
   render() {
@@ -31,12 +58,19 @@ export default class App extends React.Component
                 <GenericCurrencyField
                 currencyDescriptionText={'NGN'}
                 iconFlag= {require ('./src/images/nigFlag.png')}
-                amountFieldArea={'0'}
+                amountFieldArea={0}
+                fieldIndex = {0}
+                fieldTapped = {(index) => this.fieldTapped(index)}
+                isHighlighted = {this.state.currency1isHighlighted}
                 />
+
                 <GenericCurrencyField
                 currencyDescriptionText={'GBP'}
                 iconFlag= {require ('./src/images/uk-flag.png')}
-                amountFieldArea={'0'}
+                amountFieldArea={0}
+                fieldIndex = {1}
+                fieldTapped = {(index) => this.fieldTapped(index)}
+                isHighlighted = {this.state.currency2isHighlighted}
                 />
 
                 <View style={viewStyles.exchangeRangeDetail} >

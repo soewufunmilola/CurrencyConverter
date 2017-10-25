@@ -14,20 +14,28 @@ class GenericCurrencyField extends Component
     render()
     {
 
+      let amountStyle = (this.props.isHighlighted) ? viewStyles.highlightedAmountNumber : viewStyles.amount;
+
           return(
-              <View style={viewStyles.container}>
+            <TouchableHighlight
+            activeOpacity= {0.95}
+            underlayColor = {'transparent'}
+            onPress = {this.props.fieldTapped.bind(this, this.props.fieldIndex)}
+            style = {viewStyles.container}
 
-                  <View style={viewStyles.amountFieldArea}>
-                     <Image source= {this.props.iconFlag} resizeMode={'cover'} style= {viewStyles.flagIcon}/>
-                     <Text style= {viewStyles.amount}> {this.props.amountFieldArea} </Text>
-                  </View>
+            >
+                    <View style={viewStyles.container}>
 
-                  <View style={viewStyles.currencyDescriptionField}>
-                      <Text style= {viewStyles.currencyDescriptionText}> {this.props.currencyDescriptionText} </Text>
-                  </View>
-              </View>
+                        <View style={viewStyles.amountFieldArea}>
+                           <Image source= {this.props.iconFlag} resizeMode={'cover'} style= {viewStyles.flagIcon}/>
+                           <Text style= {amountStyle}> {this.props.amountFieldArea} </Text>
+                        </View>
 
-
+                        <View style={viewStyles.currencyDescriptionField}>
+                            <Text style= {viewStyles.currencyDescriptionText}> {this.props.currencyDescriptionText} </Text>
+                        </View>
+                    </View>
+            </TouchableHighlight>
           )
 
     }
@@ -81,6 +89,12 @@ class GenericCurrencyField extends Component
    {
      width: 55,
      height: 55
+   },
+
+   highlightedAmountNumber:
+   {
+     color: 'yellow',
+     fontSize: 30,
    }
  };
 

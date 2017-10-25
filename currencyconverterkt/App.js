@@ -2,12 +2,18 @@ import React from 'react';
 import {Text, View } from 'react-native';
 //importing the generic currency field custom componenet
 import GenericCurrencyField from './src/component/GenericCurrencyField';
+import RoundButton from './src/component/RoundButton';
 
 export default class App extends React.Component {
+
+  buttonPressed = (text, isDeleteButton) =>
+  {
+    console.log ("The button Pressed was = " + text);
+  }
+
   render() {
     return (
       <View style={viewStyles.container}>
-
             <View style= {viewStyles.headerArea}>
               <Text style={viewStyles.headertextStyle}> CURRENCY CONVERTER </Text>
             </View>
@@ -25,14 +31,20 @@ export default class App extends React.Component {
                 />
 
                 <View style={viewStyles.exchangeRangeDetail} >
-                <Text style = {viewStyles.bleh}> 1 NGN = 0.0021 GBP </Text>
-                <Text style = {viewStyles.bleh}> 1 GBP = 465.8221 NGN </Text>
+                    <Text style = {viewStyles.bleh}> 1 NGN = 0.0021 GBP </Text>
+                    <Text style = {viewStyles.bleh}> 1 GBP = 465.8221 NGN </Text>
                 </View>
 
             </View>
 
-                <View style={viewStyles.keypad}>
-                </View>
+              <View style={viewStyles.keypad}>
+                  <RoundButton
+                  number= {'5'}
+                  buttonPressed = {(text, isDeleteButton) => this.buttonPressed (text, isDeleteButton)}
+                  />
+
+
+              </View>
 
       </View>
     );
@@ -97,7 +109,7 @@ the style for the header area of the app
    width: '100%',
    height: '60%',
 
-  } ,
+  },
 
   exchangeRangeDetail:
   {

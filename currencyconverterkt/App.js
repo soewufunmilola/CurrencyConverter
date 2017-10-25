@@ -51,13 +51,42 @@ export default class App extends React.Component
                 {
                     this.buttonArray.map((data, index) =>
                     {
-                      return(
+                      if (data == "DEL"){
+                          return(
+                              <RoundButton
+                                key = {index}
+                                number = {data}
+                                isDeleteButton= {true}
+                                buttonPressed= {(text, isDeleteButton) => this.buttonPressed(text, isDeleteButton)}
+                                marginStyling= {{marginBottom: viewStyles.buttonMargins.vertical }}
+                              />
+                          );
+                        }
+                      else if ((index + 1) % 3 == 0) {
+                        return(
                         <RoundButton
+                        key = {index}
                         number = {data}
-                        isDeleteButton= {false}
+                        isDeleteButton= {true}
                         buttonPressed= {(text, isDeleteButton) => this.buttonPressed(text, isDeleteButton)}
+                        marginStyling= {{marginBottom: viewStyles.buttonMargins.vertical }}
                         />
-                      )
+                      );
+
+                      }
+
+
+                      else{
+                          return(
+                              <RoundButton
+                                key={index}
+                                number = {data}
+                                isDeleteButton= {false}
+                                buttonPressed= {(text, isDeleteButton) => this.buttonPressed(text, isDeleteButton)}
+                                marginStyling = {{marginRight: viewStyles.buttonMargins.horizontal, marginBottom: viewStyles.buttonMargins.vertical}}
+                              />
+                          );
+                        }
                     }
                 )}
 
@@ -142,5 +171,11 @@ the style for the header area of the app
     fontSize: 14,
     margin: 3,
   },
+
+  buttonMargins:
+  {
+    horizontal:65,
+    vertical: 35,
+  }
 
 });

@@ -4,13 +4,13 @@ import {Text, View, TouchableHighlight} from 'react-native';
 const buttonDetail = {
                         buttonBackgroundColour:
                            {
-                             main: 'white',
+                             main: 'lightgrey',
                              border: 'gold'
                            },
                            buttonDimensions:
                            {
-                             width: 90,
-                             height: 90
+                             width: 65,
+                             height: 65
                            }
                     };
 

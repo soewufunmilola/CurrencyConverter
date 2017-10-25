@@ -3,6 +3,9 @@ import {Text, View } from 'react-native';
 //importing the generic currency field custom componenet
 import GenericCurrencyField from './src/component/GenericCurrencyField';
 import RoundButton from './src/component/RoundButton';
+import Currency from './src/model/Currency'
+import CurrencyFactory from './src/model/CurrencyFactory'
+import ButtonPressManager from './src/model/ButtonPressManager'
 
 export default class App extends React.Component
  {
@@ -10,18 +13,39 @@ export default class App extends React.Component
     {
       super(props);
       // this array will hold all the buttons
-      this.buttonArray= ['1','2','3','4','5','6','7','8','9','.','0','GO'];
+      this.buttonArray= ['1','2','3','4','5','6','7','8','9','.','0','DEL'];
 
     this.state = {
+      currency1: CurrencyFactory.createCurrencyWithIdentifier(Currency.currencyList.nigeria),
+      currency2: CurrencyFactory.createCurrencyWithIdentifier(Currency.currencyList.britain),
       currency1isHighlighted: true,
-      currency2isHighlighted: false
+      currency2isHighlighted: false,
+      lastPressedButtonValue: ''
     }
+
+    this.currentlySelectedCurrency = this.state.currency1;
+    this.alternateCurrency = this.state.currency2;
+
 
    }
 
   buttonPressed = (text, isDeleteButton) =>
   {
     console.log ("The button Pressed was = " + text);
+    let resultingStringAfterButtonPress = ButtonPressManager.numberPressed(this.currentlySelectedCurrency.currencyStringDisplay, text, isDeleteButton, this.state.lastPressedButtonValue );
+
+    console.log("resultingStringAfterButtonPress = " + resultingStringAfterButtonPress);
+
+    let alternateCurrencyCalculation = parseFloat(resultingStringAfterButtonPress).toFixed(2) * this.currentlySelectedCurrency.exchangeRateForAlternateCurrrency(this.alternateCurrency);
+
+    console.log("alternateCurrencyCalculation = " + alternateCurrencyCalculation);
+
+    this.currentlySelectedCurrency.currencyStringDisplay = resultingStringAfterButtonPress;
+    this.alternateCurrency.currencyStringDisplay = alternateCurrencyCalculation.toFixed(2).toString();
+
+    console.log("alternateCurrency identifier (shorthand) = " + this.alternateCurrency.shorthand);
+
+    this.setState({currency1: this.state.currency1, currency2: this.state.currency2, lastPressedButtonValue: text});
   }
 
   fieldTapped = (fieldIndex) => {
@@ -30,6 +54,8 @@ export default class App extends React.Component
 
     if (fieldIndex == FIELD_ONE)
     {
+      this.currentlySelectedCurrency = this.state.currency1;
+      this.alternateCurrency = this.state.currency2;
       this.setState({
         currency1isHighlighted: true, currency2isHighlighted: false
 
@@ -38,6 +64,8 @@ export default class App extends React.Component
 
     else {
       {
+        this.currentlySelectedCurrency = this.state.currency2;
+        this.alternateCurrency = this.state.currency1;
         this.setState({
           currency1isHighlighted: false, currency2isHighlighted: true
         });
@@ -48,6 +76,11 @@ export default class App extends React.Component
   }
 
   render() {
+    let currency1Description = this.state.currency1.exchangeRangeDetail(this.state.currency2);
+    let currency2Description = this.state.currency2.exchangeRangeDetail(this.state.currency1);
+
+
+
     return (
       <View style={viewStyles.container}>
             <View style= {viewStyles.headerArea}>
@@ -56,26 +89,26 @@ export default class App extends React.Component
 
             <View style= {viewStyles.currencyBlockBackground}>
                 <GenericCurrencyField
-                currencyDescriptionText={'NGN'}
+                currencyDescriptionText={this.state.currency1.shorthand}
                 iconFlag= {require ('./src/images/nigFlag.png')}
-                amountFieldArea={0}
+                amountFieldArea={this.state.currency1.currencyStringDisplay}
                 fieldIndex = {0}
                 fieldTapped = {(index) => this.fieldTapped(index)}
                 isHighlighted = {this.state.currency1isHighlighted}
                 />
 
                 <GenericCurrencyField
-                currencyDescriptionText={'GBP'}
+                currencyDescriptionText={this.state.currency2.shorthand}
                 iconFlag= {require ('./src/images/uk-flag.png')}
-                amountFieldArea={0}
+                amountFieldArea={this.state.currency2.currencyStringDisplay}
                 fieldIndex = {1}
                 fieldTapped = {(index) => this.fieldTapped(index)}
                 isHighlighted = {this.state.currency2isHighlighted}
                 />
 
                 <View style={viewStyles.exchangeRangeDetail} >
-                    <Text style = {viewStyles.bleh}> 1 NGN = 0.0021 GBP </Text>
-                    <Text style = {viewStyles.bleh}> 1 GBP = 465.8221 NGN </Text>
+                    <Text style = {viewStyles.bleh}> {currency1Description} </Text>
+                    <Text style = {viewStyles.bleh}> {currency2Description}</Text>
                 </View>
 
             </View>
@@ -101,7 +134,6 @@ export default class App extends React.Component
                         <RoundButton
                         key = {index}
                         number = {data}
-                        isDeleteButton= {true}
                         buttonPressed= {(text, isDeleteButton) => this.buttonPressed(text, isDeleteButton)}
                         marginStyling= {{marginBottom: viewStyles.buttonMargins.vertical }}
                         />

@@ -4,7 +4,16 @@ import {Text, View } from 'react-native';
 import GenericCurrencyField from './src/component/GenericCurrencyField';
 import RoundButton from './src/component/RoundButton';
 
-export default class App extends React.Component {
+export default class App extends React.Component
+ {
+    constructor(props)
+    {
+      super(props);
+      // this array will hold all the buttons
+      this.buttonArray= ['1','2','3','4','5','6','7','8','9','.','0','GO'];
+    }
+
+
 
   buttonPressed = (text, isDeleteButton) =>
   {
@@ -38,11 +47,19 @@ export default class App extends React.Component {
             </View>
 
               <View style={viewStyles.keypad}>
-                  <RoundButton
-                  number= {'5'}
-                  buttonPressed = {(text, isDeleteButton) => this.buttonPressed (text, isDeleteButton)}
-                  />
 
+                {
+                    this.buttonArray.map((data, index) =>
+                    {
+                      return(
+                        <RoundButton
+                        number = {data}
+                        isDeleteButton= {false}
+                        buttonPressed= {(text, isDeleteButton) => this.buttonPressed(text, isDeleteButton)}
+                        />
+                      )
+                    }
+                )}
 
               </View>
 

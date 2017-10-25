@@ -49,7 +49,7 @@ const viewStyles =
     justifyContent: 'center',
     width: buttonDetail.buttonDimensions.width,
     height: buttonDetail.buttonDimensions.height,
-    borderRadius: buttonDetail.buttonDimensions.width * 0.5,
+  //  borderRadius: buttonDetail.buttonDimensions.width * 0.5,
     borderWidth: 2,
     backgroundColor:  buttonDetail.buttonBackgroundColour.main,
     borderColor: buttonDetail.buttonBackgroundColour.border
